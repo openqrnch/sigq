@@ -59,6 +59,14 @@ impl<I> Queue<I> {
     node
   }
 
+  /// Pull the oldest node off the queue and return it.  If no nodes are
+  /// available on the queue, then return `None`.
+  pub fn try_pop(&self) -> Option<I> {
+    let mut q = self.q.lock().unwrap();
+
+    q.pop_front()
+  }
+
   /// This method serves the same purpose as the [`pop()`](#method.pop) method,
   /// but rather than block it  returns a `Future` to be used in an `async`
   /// context.
